@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const Login = ({ initialMode = 'login' }) => {
   const [isLoggedInMode, setIsLoggedInMode] = React.useState(initialMode !== 'signup');
@@ -29,14 +29,14 @@ const Login = ({ initialMode = 'login' }) => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("fullName", response.data.fullName);
         reset();
-        navigate('/');
+        navigate('/home');
       } else {
         const response = await axios.post(`${API_URL}/api/auth/signup`, data);
         console.log(response.data);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("fullName", response.data.fullName);
         reset();
-        navigate('/');
+        navigate('/home');
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
