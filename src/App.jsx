@@ -8,7 +8,8 @@ function App() {
       <div className="grid w-full h-screen place-items-center bg-gray-100">
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Login initialMode="signup" />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </div>
     </Router>

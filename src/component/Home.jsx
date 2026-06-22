@@ -3,15 +3,26 @@ import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = React.useState('');
+
+  React.useEffect(() => {
+    const storedName = localStorage.getItem('fullName');
+    if (storedName) {
+      setUsername(storedName);
+    } else {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const handleLogout = () => {
-    // Here you can add any logout logic, like clearing tokens
+    localStorage.removeItem('token');
+    localStorage.removeItem('fullName');
     navigate('/login');
   };
 
   return (
     <div className="text-center">
-      <h1 className="text-4xl font-bold">Welcome to the Home Page</h1>
+      <h1 className="text-4xl font-bold">Welcome{username ? `, ${username}` : ''}</h1>
       <p className="mt-4">You have successfully logged in.</p>
       <button
         onClick={handleLogout}
